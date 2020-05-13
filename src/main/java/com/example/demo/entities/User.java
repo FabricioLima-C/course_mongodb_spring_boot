@@ -1,8 +1,11 @@
 package com.example.demo.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user")
@@ -15,6 +18,10 @@ public class User implements Serializable{
 	private String name;
 	private String email;
 	
+	// Referenciar os objetos Post utilizando a anotação @DBRef
+	// O laze = true carrega os posts quando explicitamente forem acessados
+	@DBRef(lazy = true)
+	private List<Post> posts = new ArrayList<>();
 	public User() {
 	}
 
@@ -46,6 +53,10 @@ public class User implements Serializable{
 	
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public List<Post> getPosts() {
+		return posts;
 	}
 
 	@Override
