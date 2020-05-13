@@ -13,7 +13,7 @@ public class UserDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private String id;
+	private Long id;
 	private String name;
 	private String email;
 	
@@ -43,7 +43,7 @@ public class UserDTO implements Serializable{
 		this.email = email;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
