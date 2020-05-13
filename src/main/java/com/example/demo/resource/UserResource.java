@@ -25,6 +25,7 @@ public class UserResource {
 	private UserService service;
 	
 	// O ResponseEntity é um objeto que encapsula respostas http com cabeçalhos, erros dentre outros
+	// Ou @GetMapping
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<UserDTO>> findAll() {
 		List<User> list = service.findAll();
@@ -34,7 +35,7 @@ public class UserResource {
 	
 	// ou @GetMapping
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+	public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
 		User obj = service.findById(id);
 		return ResponseEntity.ok().body(new UserDTO(obj));
 	}
@@ -51,18 +52,20 @@ public class UserResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	// Ou @DeleteMapping(value = "/{id}")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> delete(@PathVariable String id) {
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
 		// Retorna a resposta 404 do http
 		return ResponseEntity.noContent().build();
 	}
 	
+	// Ou @PutMapping(value = "/{id}")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody UserDTO objDTO, @PathVariable String id) {
+	public ResponseEntity<Void> update(@RequestBody UserDTO objDTO, @PathVariable Long id) {
 		User user = service.fromDTO(objDTO);
 		user.setId(id);
-		user = service.update(user);
+		user = service.update(user, id);
 		return ResponseEntity.noContent().build();
 	}
 }

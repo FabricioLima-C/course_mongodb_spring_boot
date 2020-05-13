@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.example.demo.dto.AuthorDTO;
 import com.example.demo.entities.Post;
 import com.example.demo.entities.User;
 import com.example.demo.repository.PostRepository;
@@ -35,10 +36,11 @@ public class Instantiation implements CommandLineRunner{
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
 		User bob = new User(null, "Bob Grey", "bob@gmail.com");
 		
-		Post post1 = new Post(null, sdf.parse("21/05/2020"), "Fed imprimindo dinheiro...", "Agora é a hora para guardar seu dinheiro em opções melhores", maria);
-		Post post2 = new Post(null, sdf.parse("23/05/2020"), "Bitcoin em decisão...", "Vair subir ou vair cair para os 8 mil dólares", bob);
-		
 		userRepository.saveAll(Arrays.asList(maria, alex, bob));
+		
+		Post post1 = new Post(null, sdf.parse("21/05/2020"), "Fed imprimindo dinheiro...", "Agora é a hora para guardar seu dinheiro em opções melhores", new AuthorDTO(maria));
+		Post post2 = new Post(null, sdf.parse("23/05/2020"), "Bitcoin em decisão...", "Vair subir ou vair cair para os 8 mil dólares", new AuthorDTO(bob));
+		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 	}
 	
