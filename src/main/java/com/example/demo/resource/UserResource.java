@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.demo.dto.UserDTO;
+import com.example.demo.entities.Post;
 import com.example.demo.entities.User;
 import com.example.demo.services.UserService;
 
@@ -67,5 +68,11 @@ public class UserResource {
 		user.setId(id);
 		user = service.update(user, id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+	public ResponseEntity<List<Post>> findPosts(@PathVariable Long id) {
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj.getPosts());
 	}
 }
