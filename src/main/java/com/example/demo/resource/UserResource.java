@@ -50,4 +50,11 @@ public class UserResource {
 		// .created() retorna o código de resposta 201 do http e com o cabeçalho contendo o endereço no novo recurso criado
 		return ResponseEntity.created(uri).build();
 	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable String id) {
+		service.delete(id);
+		// Retorna a resposta 404 do http
+		return ResponseEntity.noContent().build();
+	}
 }
